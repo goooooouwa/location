@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css">
+  <script src="jquery.js"></script>
+  <script src="handlebars.js"></script>
+  <script src="ember.js"></script>
+</head>
+<body>
+
+  <script type="text/x-handlebars">
+    <h2> Welcome to Ember.js</h2>
+
+    {{link-to 'Go to Foo' 'foo'}}
+    {{link-to 'Go to Index' 'index'}}
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="index">
+    <h2>Index</h2>
+  </script>
+  
+   <script type="text/x-handlebars" data-template-name="foo">
+    <h2>Foo</h2>
+  </script>
+  <script type="text/javascript" charset="utf-8">
+   App = Ember.Application.create();
+
+App.Router.reopen({
+  location: 'history'
+});
+
+App.Router.map(function() {
+  this.route('foo');
+});
+
+App.IndexRoute = Ember.Route.extend({
+  model: function() {
+      console.log("Setup Index.");
+    return ['red', 'yellow', 'blue'];
+  },
+  actions:{
+    willTransition: function(transition){
+      console.log("Will transition to Index.");
+      if (!confirm('You have unsaved changes! Are you sure you want to leave this page?')) {
+      console.log('Transition to Index aborted.');
+      transition.abort();
+      // Revert the URL change caused by user manually clicking the browser back button. See http://guides.emberjs.com/v1.11.0/routing/preventing-and-retrying-transitions/
+      Ember.run.next(function(){
+        this.router.router.updateURL('/');
+        this._super(transition);
+        }.bind(this));
+      console.log('Transition to Index aborted.');
+      }
+    },
+    didTransition: function(transition){
+      console.log("Did transition to Index.");
+    }
+  }
+}); 
+
+App.FooRoute = Ember.Route.extend({
+  model: function() {
+      console.log("Setup Foo.");
+    return ['foo'];
+  },
+  actions:{
+    willTransition: function(transition){
+      console.log("Will transition to Index.");
+    },
+    didTransition: function(transition){
+      console.log("Did transition to Foo.");
+    }
+  }
+}); 
+  </script>
+</body>
+</html>
+
