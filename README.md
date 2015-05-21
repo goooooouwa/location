@@ -1,10 +1,9 @@
-# an Ember bug demo
+# Ember bug demo
 See this bug in action **with Firefox**( version 12+ on OS X, version 7+ on Windows) on JSBin: http://emberjs.jsbin.com/tefoka/
 ## How to reproduce the bug
 3. click link "Go to Foo"
 4. click "OK" button on alert popup
-5. open Firefox Web Console( Option-Command-K) and clean existing
-   messages for better viewing the bug
+5. open Firefox Web Console
 6. click link "Go to Tefoka"
 7. click the browser back button to navigate back to FooRoute
 8. click "OK" button on alert popup
