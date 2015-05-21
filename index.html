@@ -38,38 +38,21 @@ App.Router.map(function() {
 });
 
 App.IndexRoute = Ember.Route.extend({
-  model: function() {
-    return ['red', 'yellow', 'blue'];
-  },
   actions:{
     willTransition: function(transition){
-      console.log("Will transition to Index.");
-      if (!confirm('You have unsaved changes! Are you sure you want to leave this page?')) {
-      transition.abort();
-      // Revert the URL change caused by user manually clicking the browser back button. See http://guides.emberjs.com/v1.11.0/routing/preventing-and-retrying-transitions/
-      this.router.router.updateURL('/');
-      console.log('Transition to Index aborted.');
-      }
-    },
-    didTransition: function(transition){
-      console.log("Did transition to Index.");
+      console.log("Start transition to Foo.");
+      alert('About to leave Index');
+      console.log('End of Index');
     }
   }
-}); 
+});
 
 App.FooRoute = Ember.Route.extend({
   model: function() {
+    console.log("Beginning of Foo.");
     return ['foo'];
-  },
-  actions:{
-    willTransition: function(transition){
-      console.log("Will transition to Index.");
-    },
-    didTransition: function(transition){
-      console.log("Did transition to Foo.");
-    }
   }
-}); 
+});
   </script>
 </body>
 </html>
