@@ -5,18 +5,18 @@ See this bug in action **with Firefox**: http://emberjs.jsbin.com/tefoka/
 4. click "OK" button on alert popup
 5. open Firefox Web Console( Option-Command-K) and clean existing
    messages for better viewing the bug
-6. click link "Go to Index"
+6. click link "Go to Tefoka"
 7. click the browser back button to navigate back to FooRoute
 8. click "OK" button on alert popup
 9. see Web Console output
 
 ### Expected result
 In Web Console, "start FooRoute#model" should be printed after "end
-IndexRoute#willTransition"
+TefokaRoute#willTransition"
 
 ### Actual result
 In Web Console, "start FooRoute#model" is printed before "end
-IndexRoute#willTransition"
+TefokaRoute#willTransition"
 
 ## What I've found
 
