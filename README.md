@@ -1,5 +1,5 @@
 # an Ember bug demo
-See this bug in action **with Firefox**: http://emberjs.jsbin.com/tefoka/
+See this bug in action **with Firefox**( version 12+ on OS X, version 7+ on Windows): http://emberjs.jsbin.com/tefoka/
 ## How to reproduce the bug
 3. click link "Go to Foo"
 4. click "OK" button on alert popup
