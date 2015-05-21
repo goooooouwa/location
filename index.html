@@ -5,7 +5,6 @@
 <title>Ember bug demo</title>
   <script src="jquery.js"></script>
   <script src="handlebars.js"></script>
-  <script src="ember-template-compiler.js"></script>
   <script src="ember.js"></script>
 </head>
 <body>
@@ -24,6 +23,17 @@
      <h2 style="color:red;">Foo</h2>
   </script>
   <script type="text/javascript" charset="utf-8">
+    Ember.Application.initializer({
+      name: 'Stop listening for overly noisy mouse events',
+
+      initialize: function(container, application) {
+        var events = container.lookup('event_dispatcher:main').events;
+        delete events.mousemove;
+        delete events.mouseenter;
+        delete events.mouseleave;
+      }
+    });
+
     App = Ember.Application.create();
 
     App.Router.reopen({
