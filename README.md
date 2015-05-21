@@ -17,8 +17,8 @@ In Web Console, "start FooRoute#model" should be printed after "end
 IndexRoute#willTransition"
 
 ### Actual result
-In Web Console, "end IndexRoute#willTransition" should be printed after "start
-FooRoute#model"
+In Web Console, "start FooRoute#model" is printed before "end
+IndexRoute#willTransition"
 
 ## What I've found
 
