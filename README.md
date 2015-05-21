@@ -1,7 +1,7 @@
 # an Ember bug demo
-
+This bug involves browser back button which can't be reproduced with JSFiddle or JSBin, have to be reproduced locally.
 ## How to reproduce the bug
-1. run this app with Python -m SimpleHTTPServer or something
+1. run this app with `Python -m SimpleHTTPServer` or something
 2. go to the URL( e.g. http://localhost:8000) of index.html in Firefox( mine is version 38.0.1)
 3. click link "Go to Foo"
 4. click "OK" button on alert popup
