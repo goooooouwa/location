@@ -27,7 +27,7 @@ console output:
 
 
 ------
-### Below is the original bug description( OUT OF DATE)
+### Below is the original bug description( Out of Date)
 ------
 
 # Ember bug demo
