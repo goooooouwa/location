@@ -66,7 +66,7 @@ Above is the Firefox bug, which causes the below Ember bug.
 
 ------
 
-# Ember bug demo
+# Ember bug demo( outdated)
 See this bug in action **with Firefox**( version 12+ on OS X, version 7+ on Windows) on JSBin: http://emberjs.jsbin.com/tefoka/
 ## How to reproduce the bug
 3. click link "Go to Foo"
