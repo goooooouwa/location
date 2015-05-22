@@ -24,8 +24,35 @@ This bug depends on:
 - Firefox window.alert/confirm/prompt
 - Ember location: 'history'
 
-## Guesses
+### Guesses
 This bug might be caused by:
 - Firefox alert/confirm/prompt window
 - Firefox History API
 - Ember Location API
+
+## Root Cause
+I found this behavior seems caused by a Firefox bug.
+
+Code to reproduce the bug in Firefox( you might need to run it **several** times):
+```javascript
+console.log('processing: task #1');
+setTimeout(function(){
+  console.log('processing: task #3');
+},0);
+alert('See console logs');
+console.log('processing: task #2');
+```
+### Expected result
+console output:
+```
+"processing: task #1"
+"processing: task #2"
+"processing: task #3"
+```
+### Actual result
+console output:
+```
+"processing: task #1"
+"processing: task #3"
+"processing: task #2"
+```
