@@ -2,64 +2,24 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Ember bug demo</title>
+<title>Backburner bug demo</title>
   <script src="jquery.js"></script>
   <script src="handlebars.js"></script>
   <script src="ember.js"></script>
 </head>
 <body>
 
-  <script type="text/x-handlebars">
-    {{link-to 'Go to Foo' 'foo'}}
-    {{link-to 'Go to Index' 'index'}}
-    {{outlet}}
-  </script>
+  <h1>Backburner bug demo</h1>
 
-  <script type="text/x-handlebars" data-template-name="index">
-    <h2>Index</h2>
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="foo">
-     <h2 style="color:red;">Foo</h2>
-  </script>
   <script type="text/javascript" charset="utf-8">
-    Ember.Application.initializer({
-      name: 'Stop listening for overly noisy mouse events',
-
-      initialize: function(container, application) {
-        var events = container.lookup('event_dispatcher:main').events;
-        delete events.mousemove;
-        delete events.mouseenter;
-        delete events.mouseleave;
-      }
+  Ember.run.schedule('actions', function task1(){
+    console.log('processing: task #1');
+    setTimeout(function(){
+       console.log('processing: task #3');
     });
-
-    App = Ember.Application.create();
-
-    App.Router.reopen({
-      location: 'history'
-    });
-
-    App.Router.map(function() {
-      this.route('foo');
-    });
-
-    App.IndexRoute = Ember.Route.extend({
-      actions:{
-        willTransition: function(transition){
-          console.log('-------------- 1. start IndexRoute#willTransition -------------- ');
-          alert('See console logs. "start FooRoute#model" will be printed before "end IndexRoute#willTransition" is printed, if you go to Foo by clicking the browser back button.');
-          console.log('-------------- 2. end IndexRoute#willTransition -------------- ');
-        }
-      }
-    });
-
-    App.FooRoute = Ember.Route.extend({
-      model: function() {
-        console.log('-------------- 3. start FooRoute#model -------------- ');
-        return [];
-      }
-    });
+    alert('See console logs');
+    console.log('processing: task #2');
+  });
   </script>
 </body>
 </html>
