@@ -27,7 +27,7 @@ console output:
 ## How this bug causes the below bug
 1. After user hit broswer back button, the URL is changed, the browser history is then changed, which triggers a `PopStateEvent`, and Ember then handles this event with `onUpdateURL()` callback
 1. As the callback, Ember starts a transition by calling `this._doURLTransition('handleURL', url);`
-1. Inside the transition, a Promise is created to determin the resolution of this transition. Ember will automatically add this promise to a runloop by calling `run.backburner.schedule('actions', function(){...})`, which in turn creates an autorun by calling `Backburner.createAutoRun()`
+1. Inside the transition, a Promise is created to determine the resolution of this transition. Ember schedules promises in runloop by calling `run.backburner.schedule('actions', function(){...})`, since no runloop is created, an `autorun` [will be created](http://guides.emberjs.com/v1.10.0/understanding-ember/run-loop/) by calling `Backburner.createAutoRun()`:
 ```javascript
     function createAutorun(backburner) {
       backburner.begin();
@@ -37,11 +37,11 @@ console output:
       });   
     }
 ```
-during the auto-created runloop, the following code is executed:
+before the auto-created runloop ends, the following code is executed:
 ```javascript
 willTransition: function(transition){
   console.log('-------------- 1. start IndexRoute#willTransition -------------- ');
-  alert('See console logs. "start FooRoute#model" will be printed before "end IndexRoute#willTransition" is printed, if you go to Foo by clicking the browser back button.');
+  alert('See console logs');
   console.log('-------------- 2. end IndexRoute#willTransition -------------- ');
 }
 ```
@@ -52,7 +52,7 @@ model: function() {
   return [];
 }
 ```
-The above code essencailly equals to:
+The above code is essencailly the same as:
 ```javascript
 console.log('processing: task #1');
 setTimeout(function(){
