@@ -25,10 +25,9 @@ console output:
 "processing: task #2"
 ```
 ## How this bug causes the below bug
-1. after user hit broswer back button, the URL is changed
-1. Ember detects that the URL is changed, with `location: history`, it then starts a transition by calling `doTransition()`
-1. inside the transition, `Ember.run.schedule(...)` creates an autorun by calling `Backburner.createAutoRun()`
-which looks like this:
+1. After user hit broswer back button, the URL is changed, the browser history is then changed, which triggers a `PopStateEvent`, and Ember then handles this event with `onUpdateURL()` callback
+1. As the callback, Ember starts a transition by calling `this._doURLTransition('handleURL', url);`
+1. Inside the transition, a Promise is created to determin the resolution of this transition. Ember will automatically add this promise to a runloop by calling `run.backburner.schedule('actions', function(){...})`, which in turn creates an autorun by calling `Backburner.createAutoRun()`
 ```javascript
     function createAutorun(backburner) {
       backburner.begin();
@@ -46,14 +45,14 @@ willTransition: function(transition){
   console.log('-------------- 2. end IndexRoute#willTransition -------------- ');
 }
 ```
-after the runloop ends, the flush process begins, and the following code is executed:
+when the runloop ends, the flush process begins, and the following code is executed:
 ```javascript
 model: function() {
   console.log('-------------- 3. start FooRoute#model -------------- ');
   return [];
 }
 ```
-The above code is essencailly equal to:
+The above code essencailly equals to:
 ```javascript
 console.log('processing: task #1');
 setTimeout(function(){
