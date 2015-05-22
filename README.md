@@ -61,7 +61,9 @@ setTimeout(function(){
 alert('See console logs');
 console.log('processing: task #2');
 ```
-1. This is the Firefox bug, which causes the below Ember bug.
+
+Above is the Firefox bug, which causes the below Ember bug.
+
 ------
 
 # Ember bug demo
