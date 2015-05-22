@@ -27,7 +27,7 @@ console output:
 ## How this bug causes the below bug
 1. After user hit broswer back button, the URL is changed, the browser history is then changed, which triggers a `PopStateEvent`, and Ember then handles this event with `onUpdateURL()` callback
 1. As the callback, Ember starts a transition by calling `this._doURLTransition('handleURL', url);`
-1. Inside the transition, a Promise is created to determine the resolution of this transition. Ember schedules promises in runloop by calling `run.backburner.schedule('actions', function(){...})`, since no runloop is created, an `autorun` [will be created](http://guides.emberjs.com/v1.10.0/understanding-ember/run-loop/) by calling `Backburner.createAutoRun()`:
+1. Inside the transition, a Promise is created to determine the resolution of this transition. Ember schedules promises in runloop by calling `run.backburner.schedule('actions', function(){...})`, since no runloop is created, an [autorun](http://guides.emberjs.com/v1.10.0/understanding-ember/run-loop/) will be created by calling `Backburner.createAutoRun()`:
 ```javascript
     function createAutorun(backburner) {
       backburner.begin();
