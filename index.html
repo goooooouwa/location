@@ -2,23 +2,32 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Backburner bug demo</title>
-  <script src="jquery.js"></script>
-  <script src="handlebars.js"></script>
-  <script src="ember.js"></script>
+<title>Firefox bug demo</title>
 </head>
 <body>
-  <h1>See console logs</h1>
+  <h1>Firefox bug( you might need to refresh this page several times)</h1>
+  <h2>Expected result</h2>
+  <p>console output:</p>
+  <ol>
+    <li>"processing: task #1"</li>
+    <li>"processing: task #2"</li>
+    <li>"processing: task #3"</li>
+  </ol>
+  <h2>Actual result</h2>
+  <p>console output:</p>
+  <ol>
+    <li>"processing: task #1"</li>
+    <li>"processing: task #3"</li>
+    <li>"processing: task #2"</li>
+  </ol>
 
   <script type="text/javascript" charset="utf-8">
-  Ember.run.schedule('actions', function task1(){
     console.log('processing: task #1');
     setTimeout(function(){
        console.log('processing: task #3');
-    });
+    },0);
     alert('See console logs');
     console.log('processing: task #2');
-  });
   </script>
 </body>
 </html>
