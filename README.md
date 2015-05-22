@@ -24,10 +24,45 @@ console output:
 "processing: task #3"
 "processing: task #2"
 ```
-
-
-------
-### Below is an outdated bug description
+## How this bug causes the below bug
+1. after user hit broswer back button, the URL is changed
+1. Ember detects that the URL is changed, with `location: history`, it then starts a transition by calling `doTransition()`
+1. inside the transition, `Ember.run.schedule(...)` creates an autorun by calling `Backburner.createAutoRun()`
+which looks like this:
+```javascript
+    function createAutorun(backburner) {
+      backburner.begin();
+      backburner._autorun = global.setTimeout(function() {
+        backburner._autorun = null; 
+        backburner.end();
+      });   
+    }
+```
+during the auto-created runloop, the following code is executed:
+```javascript
+willTransition: function(transition){
+  console.log('-------------- 1. start IndexRoute#willTransition -------------- ');
+  alert('See console logs. "start FooRoute#model" will be printed before "end IndexRoute#willTransition" is printed, if you go to Foo by clicking the browser back button.');
+  console.log('-------------- 2. end IndexRoute#willTransition -------------- ');
+}
+```
+after the runloop ends, the flush process begins, and the following code is executed:
+```javascript
+model: function() {
+  console.log('-------------- 3. start FooRoute#model -------------- ');
+  return [];
+}
+```
+The above code is essencailly equal to:
+```javascript
+console.log('processing: task #1');
+setTimeout(function(){
+  console.log('processing: task #3');
+},0);
+alert('See console logs');
+console.log('processing: task #2');
+```
+1. This is the Firefox bug, which causes the below Ember bug.
 ------
 
 # Ember bug demo
