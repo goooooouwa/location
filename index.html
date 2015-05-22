@@ -47,16 +47,16 @@
     App.IndexRoute = Ember.Route.extend({
       actions:{
         willTransition: function(transition){
-          console.log('start IndexRoute#willTransition');
+          console.log('-------------- 1. start IndexRoute#willTransition -------------- ');
           alert('See console logs. "start FooRoute#model" will be printed before "end IndexRoute#willTransition" is printed, if you go to Foo by clicking the browser back button.');
-          console.log('end IndexRoute#willTransition');
+          console.log('-------------- 2. end IndexRoute#willTransition -------------- ');
         }
       }
     });
 
     App.FooRoute = Ember.Route.extend({
       model: function() {
-        console.log('start FooRoute#model');
+        console.log('-------------- 3. start FooRoute#model -------------- ');
         return [];
       }
     });
