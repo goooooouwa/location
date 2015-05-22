@@ -1,10 +1,3 @@
-/**
- * A patched copy of Ember 1.7.0. Patched to make the runloop noisy enough to
- * visualise its actions in the console.
- *
- * As much as possible changes are contstrained to an IIFE at end of file.
- */
-
 /*!
  * @overview  Ember - JavaScript Application Framework
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors
@@ -14,8 +7,6 @@
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
  * @version   1.7.0
  */
-
-
 
 (function() {
 var define, requireModule, require, requirejs, Ember;
@@ -129,7 +120,6 @@ define("backburner",
       instanceStack: null,
 
       begin: function() {
-        // Ember.debug('in begin')
         var options = this.options,
             onBegin = options && options.onBegin,
             previousInstance = this.currentInstance;
@@ -145,7 +135,6 @@ define("backburner",
       },
 
       end: function() {
-        // Ember.debug('in end')
         var options = this.options,
             onEnd = options && options.onEnd,
             currentInstance = this.currentInstance,
@@ -610,9 +599,6 @@ define("backburner/deferred_action_queues",
         isString = Utils.isString;
 
     function DeferredActionQueues(queueNames, options) {
-      Vuvuzela.debug('Creating new queue set');
-      Vuvuzela.debug(queueNames);
-      Vuvuzela.debug(options);
       var queues = this.queues = {};
       this.queueNames = queueNames = queueNames || [];
 
@@ -673,7 +659,6 @@ define("backburner/deferred_action_queues",
         outerloop:
         while (queueNameIndex < numberOfQueues) {
           queueName = queueNames[queueNameIndex];
-          Vuvuzela.debug('Flushing ' + queueName + ' queue. (Runloop ' + Ember.run.backburner.currentInstance.__uniqueId + ')');
           queue = queues[queueName];
           queueItems = queue._queueBeingFlushed = queue._queue.slice();
           queue._queue = [];
@@ -5413,7 +5398,7 @@ define("ember-handlebars/controls",
       Internally, `{{textarea}}` creates an instance of `Ember.TextArea`, passing
       arguments from the helper to `Ember.TextArea`'s `create` method. You can
       extend the capabilities of text areas in your application by reopening this
-      class. For example, if you are building a Bootstrap project where `data-*`
+      class. For example, if you are building a Bootstrap project where `data-*` 
       attributes are used, you can globally add support for a `data-*` attribute
       on all `{{textarea}}`s' in your app by reopening `Ember.TextArea` or
       `Ember.TextSupport` and adding it to the `attributeBindings` concatenated
@@ -5879,7 +5864,7 @@ define("ember-handlebars/controls/select",
       var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
 
     function program1(depth0,data) {
-
+      
       var buffer = '', stack1;
       data.buffer.push("<option value=\"\">");
       stack1 = helpers._triageMustache.call(depth0, "view.prompt", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -5889,15 +5874,15 @@ define("ember-handlebars/controls/select",
       }
 
     function program3(depth0,data) {
-
+      
       var stack1;
       stack1 = helpers.each.call(depth0, "view.groupedContent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       else { data.buffer.push(''); }
       }
     function program4(depth0,data) {
-
-
+      
+      
       data.buffer.push(escapeExpression(helpers.view.call(depth0, "view.groupView", {hash:{
         'content': ("content"),
         'label': ("label")
@@ -5905,15 +5890,15 @@ define("ember-handlebars/controls/select",
       }
 
     function program6(depth0,data) {
-
+      
       var stack1;
       stack1 = helpers.each.call(depth0, "view.content", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       else { data.buffer.push(''); }
       }
     function program7(depth0,data) {
-
-
+      
+      
       data.buffer.push(escapeExpression(helpers.view.call(depth0, "view.optionView", {hash:{
         'content': ("")
       },hashTypes:{'content': "ID"},hashContexts:{'content': depth0},contexts:[depth0],types:["ID"],data:data})));
@@ -5924,7 +5909,7 @@ define("ember-handlebars/controls/select",
       stack1 = helpers['if'].call(depth0, "view.optionGroupPath", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       return buffer;
-
+      
     }),
       attributeBindings: ['multiple', 'disabled', 'tabindex', 'name', 'required', 'autofocus',
                           'form', 'size'],
@@ -6511,7 +6496,7 @@ define("ember-handlebars/controls/text_support",
       },
 
       /**
-        Called when the text area is blurred.
+        Called when the text area is blurred. 
 
         Uses sendAction to send the `focus-out` action.
 
@@ -6652,7 +6637,7 @@ define("ember-handlebars/ext",
           normalizedPath = normalizePath(root, path, data),
           value;
 
-
+      
         root = normalizedPath.root;
         path = normalizedPath.path;
 
@@ -6661,7 +6646,7 @@ define("ember-handlebars/ext",
         if (value === undefined && root !== Ember.lookup && isGlobalPath(path)) {
           value = get(Ember.lookup, path);
         }
-
+      
 
       return value;
     }
@@ -8956,7 +8941,7 @@ define("ember-handlebars/helpers/loc",
       Take note that `"welcome"` is a string and not an object
       reference.
 
-      See [Ember.String.loc](/api/classes/Ember.String.html#method_loc) for how to
+      See [Ember.String.loc](/api/classes/Ember.String.html#method_loc) for how to 
       set up localized string references.
 
       @method loc
@@ -9359,7 +9344,7 @@ define("ember-handlebars/helpers/view",
               //     classNameBinding="_parentView.context.isGreen:green"
               var parsedPath = View._parsePropertyPath(full);
               if(parsedPath.path !== '') {
-                path = this.contextualizeBindingPath(parsedPath.path, data);
+                path = this.contextualizeBindingPath(parsedPath.path, data); 
                 if (path) { extensions.classNameBindings[b] = path + parsedPath.classNames; }
               }
             }
@@ -12875,7 +12860,7 @@ define("ember-metal/computed_macros",
       return alias(dependentKey).oneWay();
     };
 
-
+    
       /**
         This is a more semantically meaningful alias of `computed.oneWay`,
         whose name is somewhat ambiguous as to which direction the data flows.
@@ -12887,7 +12872,7 @@ define("ember-metal/computed_macros",
           one way computed property to the original value for property.
        */
       computed.reads = computed.oneWay;
-
+    
 
     /**
       Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides
@@ -14028,7 +14013,7 @@ define("ember-metal/expand_properties",
       var match, prefix, list;
 
       if (pattern.indexOf(' ') > -1) {
-        throw new EmberError('Brace expanded properties cannot contain spaces, ' +
+        throw new EmberError('Brace expanded properties cannot contain spaces, ' + 
           'e.g. `user.{firstName, lastName}` should be `user.{firstName,lastName}`');
       }
 
@@ -15664,7 +15649,7 @@ define("ember-metal/mixin",
       });
 
       var goodGuy = App.Person.create();
-
+      
       goodGuy.name();    // 'Tomhuda Katzdale'
       goodGuy.moniker(); // 'Tomhuda Katzdale'
       ```
@@ -19405,7 +19390,7 @@ define("ember-routing-handlebars/helpers/link_to",
         var isActive = router.isActive.apply(router, args);
         if (!isActive) { return false; }
 
-
+        
           var emptyQueryParams = Ember.isEmpty(Ember.keys(loadedParams.queryParams));
 
           if (!isCurrentWhenSpecified && !emptyQueryParams && isActive) {
@@ -19414,7 +19399,7 @@ define("ember-routing-handlebars/helpers/link_to",
             router._prepareQueryParams(loadedParams.targetRouteName, loadedParams.models, visibleQueryParams);
             isActive = shallowEqual(visibleQueryParams, router.router.state.queryParams);
           }
-
+        
 
         if (isActive) { return get(this, 'activeClass'); }
       }),
@@ -19458,9 +19443,9 @@ define("ember-routing-handlebars/helpers/link_to",
         if (!isSimpleClick(event)) { return true; }
 
         if (this.preventDefault !== false) {
-
+          
             event.preventDefault();
-
+          
         }
 
         if (this.bubbles === false) { event.stopPropagation(); }
@@ -19617,10 +19602,10 @@ define("ember-routing-handlebars/helpers/link_to",
         }
 
         var visibleQueryParams = {};
-
+        
           merge(visibleQueryParams, loadedParams.queryParams);
           router._prepareQueryParams(loadedParams.targetRouteName, loadedParams.models, visibleQueryParams);
-
+        
 
         var args = routeArgs(loadedParams.targetRouteName, loadedParams.models, visibleQueryParams);
         var result = router.generate.apply(router, args);
@@ -19640,7 +19625,7 @@ define("ember-routing-handlebars/helpers/link_to",
 
     LinkView.toString = function() { return "LinkView"; };
 
-
+    
     /**
       The `{{link-to}}` helper renders a link to the supplied
       `routeName` passing an optionally supplied model to the
@@ -19944,7 +19929,7 @@ define("ember-routing-handlebars/helpers/link_to",
     }
 
 
-
+    
       EmberHandlebars.registerHelper('query-params', function queryParamsHelper(options) {
         Ember.assert(fmt("The `query-params` helper only accepts hash parameters, e.g. (query-params queryParamPropertyName='%@') as opposed to just (query-params '%@')", [options, options]), arguments.length === 1);
 
@@ -19953,7 +19938,7 @@ define("ember-routing-handlebars/helpers/link_to",
           types: options.hashTypes
         });
       });
-
+    
 
     /**
       See [link-to](/api/classes/Ember.Handlebars.helpers.html#method_link-to)
@@ -20638,7 +20623,7 @@ define("ember-routing/ext/controller",
 
     var ALL_PERIODS_REGEX = /\./g;
 
-
+    
       ControllerMixin.reopen({
         init: function() {
           this._super.apply(this, arguments);
@@ -20747,7 +20732,7 @@ define("ember-routing/ext/controller",
           return prefix + suffixes.replace(ALL_PERIODS_REGEX, '-');
         }
       });
-
+    
 
     function accumulateQueryParamDescriptors(_desc, accum) {
       var desc = _desc, tmp;
@@ -21767,10 +21752,10 @@ define("ember-routing/location/history_location",
 
         var url = path.replace(baseURL, '').replace(rootURL, '');
 
-
+        
           var search = location.search || '';
           url += search;
-
+        
 
         return url;
       },
@@ -22332,11 +22317,11 @@ define("ember-routing/system/route",
         @since 1.7.0
       */
       _reset: function(isExiting, transition) {
-
+        
           var controller = this.controller;
           controller._qpDelegate = get(this, '_qp.states.inactive');
           this.resetController(this.controller, isExiting, transition);
-
+        
       },
 
       /**
@@ -22591,7 +22576,7 @@ define("ember-routing/system/route",
       _actions: {
 
         queryParamsDidChange: function(changed, totalPresent, removed) {
-
+          
             var totalChanged = keys(changed).concat(keys(removed));
             for (var i = 0, len = totalChanged.length; i < len; ++i) {
               var urlKey = totalChanged[i],
@@ -22601,11 +22586,11 @@ define("ember-routing/system/route",
               }
             }
             return true;
-
+          
         },
 
         finalizeQueryParamChange: function(params, finalParams, transition) {
-
+          
             if (this.routeName !== 'application') { return true; }
 
             // Transition object is absent for intermediate transitions.
@@ -22686,7 +22671,7 @@ define("ember-routing/system/route",
               finalizedController._qpDelegate = get(routeQpMeta, 'states.active');
             });
             router._qpUpdates = null;
-
+          
         }
       },
 
@@ -22980,7 +22965,7 @@ define("ember-routing/system/route",
           Ember.deprecate("Ember.Route.setupControllers is deprecated. Please use Ember.Route.setupController(controller, model) instead.");
           this.setupControllers(controller, context);
         } else {
-
+          
             var states = get(this, '_qp.states');
             if (transition) {
               // Update the model dep values used to calculate cache keys.
@@ -23224,9 +23209,9 @@ define("ember-routing/system/route",
         var match, name, sawParams, value;
 
         var queryParams;
-
+        
           queryParams = get(this, '_qp.map');
-
+        
 
         for (var prop in params) {
           if (prop === 'queryParams' || (queryParams && prop in queryParams)) {
@@ -23262,7 +23247,7 @@ define("ember-routing/system/route",
         Router.js hook.
        */
       deserialize: function(params, transition) {
-
+        
           return this.model(this.paramsFor(this.routeName), transition);
               },
 
@@ -23842,7 +23827,7 @@ define("ember-routing/system/route",
       states: {}
     };
 
-
+    
       Route.reopen({
         /**
           Configuration hash for this route's queryParams. The possible
@@ -24074,7 +24059,7 @@ define("ember-routing/system/route",
         */
         resetController: Ember.K
       });
-
+    
 
     function parentRoute(route) {
       var handlerInfo = handlerInfoFor(route, route.router.router.state.handlerInfos, -1);
@@ -24667,10 +24652,10 @@ define("ember-routing/system/router",
         Ember.assert("The route " + targetRouteName + " was not found", targetRouteName && this.router.hasRoute(targetRouteName));
 
         var queryParams = {};
-
+        
           merge(queryParams, _queryParams);
           this._prepareQueryParams(targetRouteName, models, queryParams);
-
+        
 
         var transitionArgs = routeArgs(targetRouteName, models, queryParams);
         var transitionPromise = this.router.transitionTo.apply(this.router, transitionArgs);
@@ -24907,7 +24892,7 @@ define("ember-routing/system/router",
       var targetChildRouteName = originatingChildRoute.routeName.split('.').pop();
       var namespace = parentRoute.routeName === 'application' ? '' : parentRoute.routeName + '.';
 
-
+      
       // Second, try general loading state, e.g. 'loading'
       childName = namespace + name;
       if (routeHasBeenDefined(router, childName)) {
@@ -25023,10 +25008,10 @@ define("ember-routing/system/router",
         if (!router) {
           router = new Router();
 
-
+          
             router._triggerWillChangeContext = Ember.K;
             router._triggerWillLeave = Ember.K;
-
+          
 
           router.callbacks = [];
           router.triggerEvent = triggerEvent;
@@ -25099,7 +25084,7 @@ define("ember-routing/system/router",
     }
 
     function forEachQueryParam(router, targetRouteName, queryParams, callback) {
-
+      
         var qpCache = router._queryParamsFor(targetRouteName),
         qps = qpCache.qps;
 
@@ -26721,12 +26706,12 @@ define("ember-runtime/computed/reduce_computed_macros",
         })
       });
 
-      var hamster = Hamster.create({
+      var hamster = Hamster.create({ 
         chores: [
           { name: 'cook', done: true },
           { name: 'clean', done: true },
           { name: 'write more unit tests', done: false }
-        ]
+        ] 
       });
 
       hamster.get('remainingChores'); // [{name: 'write more unit tests', done: false}]
@@ -48232,66 +48217,3 @@ define("rsvp/utils",
 requireModule("ember");
 
 })();
-
-/**
- * Vuvuzela
- *
- * Make the Ember Runloop noisy on the console to help visualise its action.
- *
- * This patch will seriously degrade the performance of your Ember application
- * so should never be applied to production code.
- *
- */
-
-Vuvuzela = (function () {
-  var bb =        Ember.run.backburner,
-      oldBegin =  bb.begin,
-      oldEnd =    bb.end,
-      oldFlush =  bb.flush,
-      runLoopId = 0;
-
-  Ember.run.backburner.begin = function () {
-    oldBegin.apply(bb, arguments);
-    bb.currentInstance.__uniqueId = ++runLoopId;
-    Ember.debug('Opening queues in Runloop: ' + bb.currentInstance.__uniqueId);
-  };
-
-  Ember.run.backburner.end = function () {
-    var currentId = bb.currentInstance.__uniqueId;
-    Ember.debug('Closing queues in Runloop ' + currentId + ' to outside code');
-    Ember.debug('The queues look like:' + queuesReport());
-    oldEnd.apply(bb, arguments);
-  };
-
-  Ember.run.backburner.flush = function () {
-    var currentId = bb.currentInstance.__uniqueId;
-    Ember.debug('Flushing queues in Runloop: ' + currentId);
-    oldFlush.apply(bb, arguments);
-  };
-
-  function queuesReport() {
-    var names = Ember.run.queues;
-    var queues = Ember.run.backburner.currentInstance.queues;
-
-    var reports = names.map(function (name) {
-      var jobs = queues[name]._queue.length / 4;
-      return name + ": jobs:" + jobs + "\n";
-    });
-    return "\n" + reports.join('');
-  }
-
-  // var setup = function (App) {
-  //   var old_initialize = App._initialize;
-  //
-  //   App._initialize = function () {
-  //     Ember.debug('At start of _initialize() the queues look like:' + queuesReport());
-  //     old_initialize.apply(App, arguments);
-  //     Ember.debug('At end of _initialize() the queues look like:' + queuesReport());
-  //   };
-  // };
-
-  return {
-    debug: Ember.debug
-  };
-}());
-
